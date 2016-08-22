@@ -1,4 +1,4 @@
-import math
+from math import sqrt
 class Elf():
     def __init__(self, name="Elf", weight = 10, height = 10, color = "blue", energy = 100):
         self.name = name
@@ -8,7 +8,7 @@ class Elf():
         self.energy = energy
     
     def walk(self, x = 3, y = 4):
-        self.energy -= math.sqrt(x*x + y*y)
+        self.energy -= sqrt(x*x + y*y)
         self.describe()
     
     def jump(self):
@@ -21,3 +21,7 @@ class Elf():
     
     def describe(self):
         print(self.name + " with " + str(self.energy) + " energy")
+
+if __name__ == "__main__":
+    import pdb
+    pdb.set_trace()

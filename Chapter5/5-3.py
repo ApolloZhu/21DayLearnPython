@@ -1,4 +1,6 @@
-﻿html = """
+﻿import doctest
+
+html = """
 <h3>Contact Us</h3>
 <p>Name: Mr.Wang</p>
 <p>TEl: 021-87017800</p>
@@ -15,6 +17,10 @@
 """
 
 def getURL(html):
+	"""
+	>>> getURL(html)
+	['/', '/lista.php', '/listb.php', '/listc.php', '/order/setorder.php', '/about.php']
+	"""
 	return list(
 		map(
 			lambda s: s[:s.find('"')], 
@@ -26,3 +32,5 @@ def getURL(html):
 			)
 		)
 	)
+
+doctest.testmod()

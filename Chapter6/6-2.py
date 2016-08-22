@@ -1,3 +1,5 @@
+import pdb
+
 def transcript(x, y):
     return (abs(x), abs(y))
 
@@ -41,3 +43,12 @@ class FinalAnt(FlyAnt):
         printStat("Attacking as a whole")
     def jump(self):
         printStat("Jumping")
+
+
+pdb.run("""
+ant = FinalAnt()
+ant.crawl(3,4)
+ant.attack()
+ant.jump()
+ant.fly(3,5)
+""")

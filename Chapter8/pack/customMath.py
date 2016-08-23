@@ -9,9 +9,12 @@ def absolute(num):
 def isPrime(num):
     if num <= 1:
         return False
-    for i in range(2, int(math.sqrt(num)) + 1, 2):
-        if num % i == 0:
+    elif num != 2:
+        if num % 2 == 0:
             return False
+        for i in range(3, int(math.sqrt(num)) + 1, 2):
+            if num % i == 0:
+                return False
     return True
 
 if __name__ == "__main__":

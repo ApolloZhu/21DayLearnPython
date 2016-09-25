@@ -1,13 +1,17 @@
+from Model import window
+import MenuView as menu
 import CalculatorView as view
-from Util import CalculatorBrain as Brain
-from Util import EventHandler
+from Model import CalculatorBrain as Brain
+from Model import EventHandler
 
 class CalculatorViewController(EventHandler):
-    numberDisplaying = "0"
+    #numberDisplaying = "0"
     brain = Brain()
     def __init__(self):
+        menu.handler = self
         view.handler = self
         view.load()
+        window.mainloop()
 
     @staticmethod
     def handle(eventStr):
@@ -16,6 +20,7 @@ class CalculatorViewController(EventHandler):
         def clear(val="0"):
             CalculatorViewController.numberDisplaying = "0"
             view.setDisplay(val)
+            engine.clear()
         try:
             if eventStr == 'C':
                 clear()
@@ -31,8 +36,9 @@ class CalculatorViewController(EventHandler):
                         CalculatorViewController.numberDisplaying += eventStr
                 view.setDisplay(CalculatorViewController.numberDisplaying)
         except:
-            if engine.accumulator == 0:
+            if engine.cleared:
                 engine.accumulator = float(current)
+                CalculatorViewController.brain.cleared = False
             view.setDisplay(eventStr)
             response = engine.calc(eventStr,float(current))
             if response == None:

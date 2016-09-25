@@ -1,8 +1,8 @@
 import tkinter
-from Util import Button
-from Util import EventHandler
+from Model import window
+from Model import Button
+from Model import EventHandler
 
-window = tkinter.Tk()
 handler = EventHandler()
 
 buttons = [
@@ -18,7 +18,7 @@ __displayVal = tkinter.StringVar()
 def load():
     layoutLabel(window)
     layoutButtons(window)
-    window.mainloop()
+    window.bind("<Return>", enter)
 
 def layoutLabel(root):
     __displayVal.set("0")
@@ -27,11 +27,14 @@ def layoutLabel(root):
 def layoutButtons(root):
     for button in buttons:
         real = tkinter.Button(root, text=button.title)
-        real.bind('<Button-1>', sendEvent)
+        real.bind("<Button-1>", sendEvent)
         real.grid(column=button.x,row=button.y,columnspan=button.w, rowspan=button.h, sticky=tkinter.W+tkinter.E)
 
 def sendEvent(event):
     handler.handle(event.widget['text'])
+
+def enter(event):
+    handler.handle('=')
 
 def setDisplay(val):
     __displayVal.set(str(val))

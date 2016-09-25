@@ -1,4 +1,6 @@
-import math
+import math, tkinter
+
+window = tkinter.Tk()
 
 class Button():
     def __init__(self, title, x, y, width=1,height=1):
@@ -9,6 +11,7 @@ class Button():
         self.h = height
 
 class EventHandler():
+    numberDisplaying = "0"
     @staticmethod
     def handle(eventStr):
         print("Generic handling",eventStr)
@@ -20,23 +23,29 @@ class CalculatorBrain():
             self.resetting = resetting
     
     def calc(self, expression, newValue = None):
-        print(expression,self.accumulator,newValue)
+        #print(expression,self.accumulator,newValue)
         if expression == 'C':
-            self.reset()
+            self.clear()
         elif expression == '=':
             try:
                 self.accumulator = self.supported[self.operator](self.accumulator, newValue)
                 return CalculatorBrain.Response(self.accumulator)
             except:
-                self.reset()
+                self.clear()
         elif expression in self.supported.keys():
             self.operator = expression
             return CalculatorBrain.Response(self.operator, True)
         else:
-            self.reset()
+            self.clear()
     
     def __init__(self):
         self.reset()
+
+    def clear(self):
+        self.accumulator = 0
+        self.operator = ''
+        self.floatingLength = 0
+        self.cleared = True
     
     def reset(self):
         def sqrt(x,y):
@@ -67,6 +76,4 @@ class CalculatorBrain():
             "pow":lambda x,y: math.pow(x,y),
             "sqrt":lambda x,y: sqrt(x,y)
         }
-        self.accumulator = 0
-        self.operator = ''
-        self.floatingLength = 0
+        self.clear()
